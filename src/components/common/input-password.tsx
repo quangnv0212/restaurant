@@ -2,16 +2,17 @@
 import { Input } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FormItem } from 'react-hook-form-antd';
-export interface IInputPasswordProps {
+import { Control, FieldValues } from 'react-hook-form';
+export interface IInputPasswordProps<T extends FieldValues> {
   label: string;
   name: string;
   placeholder?: string;
   prefix?: React.ReactNode;
-  control: any;
+  control: Control<T>;
   size?: 'large' | 'middle' | 'small';
 }
 
-export function InputPassword(props: IInputPasswordProps) {
+export function InputPassword(props: IInputPasswordProps<any>) {
   const { label, name, placeholder, prefix, control, size = 'middle' } = props;
   return (
     <div className={'font-poppins flex flex-col gap-2'}>

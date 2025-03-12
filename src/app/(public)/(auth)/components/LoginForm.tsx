@@ -4,14 +4,13 @@ import { InputCheckCommon } from '@/components/common/input-check';
 import { InputPassword } from '@/components/common/input-password';
 import { InputTextCommon } from '@/components/common/input-text';
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-
+import { LoginBodyType } from '../schemaValidations/auth.schema';
 export default function LoginForm() {
-  const { control, handleSubmit } = useForm<any>();
-
-  const onSubmit = async (data: any) => {
+  const { control, handleSubmit } = useForm<LoginBodyType>();
+  const onSubmit = async (data: LoginBodyType) => {
     console.log(data);
   };
   return (

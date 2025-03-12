@@ -1,14 +1,15 @@
 'use client';
 import { Input } from 'antd';
 import { ChangeEventHandler } from 'react';
+import { Control, FieldValues } from 'react-hook-form';
 import { FormItem } from 'react-hook-form-antd';
 
-export interface IInputTextCommonProps {
+export interface IInputTextCommonProps<T extends FieldValues> {
   label?: string;
   name: string;
   placeholder?: string;
   prefix?: React.ReactNode;
-  control: any;
+  control: Control<T>;
   size?: 'large' | 'middle' | 'small';
   disabled?: boolean;
   autoComplete?: string;
@@ -17,7 +18,7 @@ export interface IInputTextCommonProps {
   isRequired?: boolean;
 }
 
-export function InputTextCommon(props: IInputTextCommonProps) {
+export function InputTextCommon(props: IInputTextCommonProps<any>) {
   const {
     label,
     name,
