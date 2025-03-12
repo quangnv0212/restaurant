@@ -1,9 +1,10 @@
 import LayoutProvider from '@/components/providers/layout-provider';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
+import '@ant-design/v5-patch-for-react-19';
+import { ConfigProvider, ThemeConfig } from 'antd';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
-
 const poppins = Poppins({
   variable: '--font-poppins',
   subsets: ['latin'],
@@ -19,12 +20,53 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const themeConfig: ThemeConfig = {
+    components: {
+      Input: {
+        colorPrimary: '#2D669B',
+        colorPrimaryHover: '#2D669B',
+      },
+      Button: {
+        colorPrimary: '#2D669B',
+        colorPrimaryHover: '#3b89d1',
+      },
+      Layout: {
+        colorBgBase: '#F5F5F5',
+      },
+      Menu: {
+        colorPrimary: '#2D669B',
+        colorPrimaryHover: '#2D669B',
+        colorPrimaryActive: '#2D669B',
+        colorPrimaryText: '#2D669B',
+        colorPrimaryTextHover: '#3b89d1',
+        colorPrimaryTextActive: '#2D669B',
+      },
+      Breadcrumb: {
+        colorText: '#2D669B',
+      },
+      Select: {
+        colorPrimary: '#2D669B',
+        colorPrimaryHover: '#3b89d1',
+        colorPrimaryActive: '#2D669B',
+        colorPrimaryText: '#2D669B',
+      },
+      Wave: {
+        colorPrimary: '#2D669B',
+        colorPrimaryHover: '#3b89d1',
+        colorPrimaryActive: '#2D669B',
+        colorPrimaryText: '#2D669B',
+      },
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} antialiased`}>
-        <AntdRegistry>
-          <LayoutProvider>{children}</LayoutProvider>
-        </AntdRegistry>
+        <ConfigProvider theme={themeConfig}>
+          <AntdRegistry>
+            <LayoutProvider>{children}</LayoutProvider>
+          </AntdRegistry>
+        </ConfigProvider>
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-
+@plugin "daisyui";
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -40,10 +40,3 @@ body {
   font-family: var(--font-poppins) !important;
 }
 
-.ant-layout-sider {
-  background: #001529 !important; /* Hoặc màu khác theo ý bạn */
-}
-.ant-layout-sider-children,
-.ant-layout-sider-trigger {
-  background: white !important; /* Hoặc màu khác theo ý bạn */
-}
