@@ -122,7 +122,7 @@ const request = async <Response>(
         if (!clientLogoutRequest) {
           clientLogoutRequest = fetch('/api/auth/logout', {
             method: 'POST',
-            body: null, // Logout mình sẽ cho phép luôn luôn thành công
+            body: null,
             headers: {
               ...baseHeaders,
             } as any,
