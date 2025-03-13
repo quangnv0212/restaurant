@@ -3,26 +3,54 @@
 import { InputCheckCommon } from '@/components/common/input-check';
 import { InputPassword } from '@/components/common/input-password';
 import { InputTextCommon } from '@/components/common/input-text';
+import { useAppStore } from '@/components/providers/layout-provider';
+import { handleErrorApi } from '@/lib/utils';
 import { KeyOutlined, UserOutlined } from '@ant-design/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Form } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
-import { LoginBodyType } from '../schemaValidations/auth.schema';
+import { toast } from 'sonner';
+import { useLoginMutation } from '../queries/useAuth';
+import { LoginBody, LoginBodyType } from '../schemaValidations/auth.schema';
 export default function LoginForm() {
-  const { control, handleSubmit } = useForm<LoginBodyType>();
+  const { control, handleSubmit, setError } = useForm<LoginBodyType>({
+    resolver: zodResolver(LoginBody),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+  const loginMutation = useLoginMutation();
+  const setRole = useAppStore(state => state.setRole);
+  const router = useRouter();
   const onSubmit = async (data: LoginBodyType) => {
-    console.log(data);
+    if (loginMutation.isPending) return;
+    try {
+      const result = await loginMutation.mutateAsync(data);
+      toast.success(result.payload.message);
+      setRole(result.payload.data.account.role);
+      router.push('/manage/dashboard');
+    } catch (error: any) {
+      handleErrorApi({
+        error,
+        setError: setError,
+      });
+    }
   };
   return (
     <div className="font-poppins flex flex-col items-center justify-center gap-2">
       <h1 className="text-2xl font-bold uppercase">Login</h1>
       <Form
-        onFinish={handleSubmit(onSubmit)}
+        onFinish={handleSubmit(onSubmit, error => {
+          console.log(error);
+        })}
         className="animate-slideUp flex w-[320px] flex-col gap-2"
       >
         <InputTextCommon
           label="Email"
-          name="userNameOrEmailAddress"
+          name="email"
           placeholder="Enter your email"
           prefix={<UserOutlined />}
           control={control}

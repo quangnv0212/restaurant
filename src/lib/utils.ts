@@ -2,6 +2,8 @@ import { clsx, type ClassValue } from 'clsx';
 import { UseFormSetError } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 import { EntityError } from './http';
+import { TokenPayload } from '@/types/jwt.types';
+import { jwtDecode } from 'jwt-decode';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -47,4 +49,8 @@ export const handleErrorApi = ({
     console.log(error);
     // toast(error?.payload?.message ?? 'Lỗi không xác định');
   }
+};
+
+export const decodeToken = (token: string) => {
+  return jwtDecode(token) as TokenPayload;
 };

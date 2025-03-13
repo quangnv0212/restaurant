@@ -6,6 +6,7 @@ import { HttpError } from '@/lib/http';
 
 export async function POST(request: Request) {
   const body = (await request.json()) as LoginBodyType;
+
   const cookieStore = await cookies();
   try {
     const { payload } = await authApiRequest.sLogin(body);
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
     } else {
       return Response.json(
         {
-          message: 'Error',
+          message: 'Có lỗi xảy ra',
         },
         {
           status: 500,
