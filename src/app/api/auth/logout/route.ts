@@ -1,7 +1,7 @@
 import authApiRequest from '@/app/(public)/(auth)/apiRequests/auth';
 import { cookies } from 'next/headers';
 
-export async function POST(request: Request) {
+export async function POST() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
   const refreshToken = cookieStore.get('refreshToken')?.value;
@@ -24,6 +24,7 @@ export async function POST(request: Request) {
     });
     return Response.json(result.payload);
   } catch (error) {
+    console.log(error);
     return Response.json(
       {
         message: 'Error when calling API to server backend',

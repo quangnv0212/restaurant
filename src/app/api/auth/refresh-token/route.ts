@@ -1,8 +1,8 @@
 import authApiRequest from '@/app/(public)/(auth)/apiRequests/auth';
-import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
 
-export async function POST(request: Request) {
+export async function POST() {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get('refreshToken')?.value;
   if (!refreshToken) {

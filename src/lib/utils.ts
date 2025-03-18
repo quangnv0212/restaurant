@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { EntityError } from './http';
 import { TokenPayload } from '@/types/jwt.types';
 import { jwtDecode } from 'jwt-decode';
+import slugify from 'slugify';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -53,4 +54,16 @@ export const handleErrorApi = ({
 
 export const decodeToken = (token: string) => {
   return jwtDecode(token) as TokenPayload;
+};
+export const formatCurrency = (number: number) => {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  }).format(number);
+};
+export const generateSlugUrl = ({ name, id }: { name: string; id: number }) => {
+  return `${slugify(name)}-i.${id}`;
+};
+export const getIdFromSlugUrl = (slug: string) => {
+  return Number(slug.split('-i.')[1]);
 };

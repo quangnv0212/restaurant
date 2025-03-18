@@ -5,6 +5,8 @@ import { ConfigProvider, ThemeConfig } from 'antd';
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+
 const poppins = Poppins({
   variable: '--font-poppins',
   subsets: ['latin'],
@@ -62,11 +64,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${poppins.variable} antialiased`}>
-        <ConfigProvider theme={themeConfig}>
-          <AntdRegistry>
-            <LayoutProvider>{children}</LayoutProvider>
-          </AntdRegistry>
-        </ConfigProvider>
+        <NuqsAdapter>
+          <ConfigProvider theme={themeConfig}>
+            <AntdRegistry>
+              <LayoutProvider>{children}</LayoutProvider>
+            </AntdRegistry>
+          </ConfigProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
