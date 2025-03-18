@@ -18,8 +18,8 @@ export default function LoginForm() {
   const { control, handleSubmit, setError } = useForm<LoginBodyType>({
     resolver: zodResolver(LoginBody),
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'admin@order.com',
+      password: '123456',
     },
   });
   const loginMutation = useLoginMutation();
