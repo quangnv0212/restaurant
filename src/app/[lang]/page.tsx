@@ -1,10 +1,16 @@
 import { formatCurrency, generateSlugUrl } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import dishApiRequest from './(dishes)/apiRequests/dish';
-import { DishListResType } from './(dishes)/schemaValidations/dish.schema';
-
-export default async function Home() {
+import { DishListResType } from './(public)/(dishes)/schemaValidations/dish.schema';
+import dishApiRequest from './(public)/(dishes)/apiRequests/dish';
+import { getDictionary } from './dictionaries';
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lang: 'en' | 'nl' }>;
+}) {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
   let dishList: DishListResType['data']['items'] = [];
   try {
     const result = await dishApiRequest.list({
@@ -17,9 +23,9 @@ export default async function Home() {
     dishList = data.items;
   } catch (error) {
     console.log(error);
-
     return <div>Something went wrong</div>;
   }
+
   return (
     <div className="w-full space-y-4">
       <section className="relative z-10">
@@ -35,13 +41,15 @@ export default async function Home() {
         />
         <div className="relative z-20 px-4 py-10 sm:px-10 md:px-20 md:py-20">
           <h1 className="text-center text-xl font-bold sm:text-2xl md:text-4xl lg:text-5xl">
-            Title
+            {dictionary.title}
           </h1>
-          <p className="mt-4 text-center text-sm sm:text-base">Slogan</p>
+          <p className="mt-4 text-center text-sm sm:text-base">
+            {dictionary.slogan}
+          </p>
         </div>
       </section>
       <section className="space-y-10 py-16">
-        <h2 className="text-center text-2xl font-bold">Title</h2>
+        <h2 className="text-center text-2xl font-bold">{dictionary.title}</h2>
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
           {dishList.map(dish => (
             <Link

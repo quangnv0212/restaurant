@@ -1,6 +1,6 @@
-import { DishResType } from '@/app/(public)/(dishes)/schemaValidations/dish.schema';
 import { formatCurrency } from '@/lib/utils';
 import Image from 'next/image';
+import { DishResType } from '../../schemaValidations/dish.schema';
 
 export default async function DishDetail({
   dish,

@@ -1,6 +1,6 @@
-import dishApiRequest from '@/app/(public)/(dishes)/apiRequests/dish';
-import DishDetail from '@/app/(public)/(dishes)/dishes/[slug]/dish-detail';
+import DishDetail from '@/app/[lang]/(public)/(dishes)/dishes/[slug]/dish-detail';
 import { getIdFromSlugUrl } from '@/lib/utils';
+import dishApiRequest from '../../apiRequests/dish';
 
 export default async function DishPage(props: {
   params: Promise<{
